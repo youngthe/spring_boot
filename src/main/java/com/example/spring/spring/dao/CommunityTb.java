@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class CommunityTb {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(name = "title")
