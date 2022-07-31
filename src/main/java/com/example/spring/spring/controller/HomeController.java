@@ -41,7 +41,7 @@ public class HomeController {
 
         if(userRepository.LoginCheck(userTb)){
             session.setAttribute("user", id);
-            return "/community/community";
+            return "redirect:/community";
         }else{
             return "login";
         }
