@@ -62,7 +62,7 @@ public class CommunityContoller {
         System.out.println(community_id);
 
         try{
-            CommunityTb communityTb = communityRepository.getCommunity_detail(community_id);
+            CommunityTb communityTb = communityRepository.getCommunityById(community_id);
             System.out.println(communityTb.getContent());
             model.addAttribute("community", communityTb);
 

@@ -8,7 +8,7 @@ public interface CommunityTbRepositoryCustom {
 
     public List<CommunityTb> getCommunity();
 
-    public CommunityTb getCommunity_detail(long num);
+    public CommunityTb getCommunityById(long id);
 
 }
 

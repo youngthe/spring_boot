@@ -31,13 +31,13 @@ public class CommunityTbRepositoryCustomImpl extends QuerydslRepositorySupport i
     }
 
     @Override
-    public CommunityTb getCommunity_detail(long num){
+    public CommunityTb getCommunityById(long id){
 
         QCommunityTb qCommunityTb = QCommunityTb.CommunityTb;
 
         return query
                 .selectFrom(qCommunityTb)
-                .where(qCommunityTb.id.eq(num))
+                .where(qCommunityTb.id.eq(id))
                 .fetchFirst();
 
     }
