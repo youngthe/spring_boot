@@ -32,7 +32,7 @@ public class CommunityContoller {
 
 
     @RequestMapping(value = "/community/save")
-    public void community_save(HttpServletRequest request, HttpSession session){
+    public String community_save(HttpServletRequest request, HttpSession session){
 
         String title = request.getParameter("title");
         String content = request.getParameter("content");
@@ -48,6 +48,7 @@ public class CommunityContoller {
         communityTb.setDate(now);
         communityRepository.save(communityTb);
 
+        return "redirect:/community";
     }
 
     @RequestMapping(value = "/community/write")
@@ -63,6 +64,7 @@ public class CommunityContoller {
 
         try{
             CommunityTb communityTb = communityRepository.getCommunityById(community_id);
+            communityRepository.hit_Community(communityTb);
             System.out.println(communityTb.getContent());
             model.addAttribute("community", communityTb);
 

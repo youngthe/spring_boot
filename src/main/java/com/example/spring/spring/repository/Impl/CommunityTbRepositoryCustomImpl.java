@@ -3,11 +3,11 @@ package com.example.spring.spring.repository.Impl;
 import com.example.spring.spring.dao.CommunityTb;
 import com.example.spring.spring.domain.QCommunityTb;
 import com.example.spring.spring.repository.CommunityTbRepositoryCustom;
-import com.example.spring.spring.repository.UserTbRepositoryCustom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public class CommunityTbRepositoryCustomImpl extends QuerydslRepositorySupport implements CommunityTbRepositoryCustom {
@@ -31,15 +31,26 @@ public class CommunityTbRepositoryCustomImpl extends QuerydslRepositorySupport i
     }
 
     @Override
-    public CommunityTb getCommunityById(long id){
+    public CommunityTb getCommunityById(int Community_id){
 
         QCommunityTb qCommunityTb = QCommunityTb.CommunityTb;
 
         return query
                 .selectFrom(qCommunityTb)
-                .where(qCommunityTb.id.eq(id))
+                .where(qCommunityTb.id.eq(Community_id))
                 .fetchFirst();
 
     }
 
+
+    @Transactional
+    public void hit_Community(CommunityTb communityTb){
+
+        QCommunityTb qCommunityTb = QCommunityTb.CommunityTb;
+
+        query.update(qCommunityTb)
+                .where(qCommunityTb.id.eq(communityTb.getId()))
+                .set(qCommunityTb.hits, communityTb.getHits()+1)
+                .execute();
+    }
 }

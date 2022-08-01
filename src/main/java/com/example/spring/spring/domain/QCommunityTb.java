@@ -12,13 +12,13 @@ import static com.querydsl.core.types.PathMetadataFactory.forVariable;
 public class QCommunityTb extends EntityPathBase<CommunityTb> {
     public static final QCommunityTb CommunityTb = new QCommunityTb("Community");
 //    public final StringPath id = createString("id");
-    public final NumberPath<Long> id = createNumber("id", Long.class);
+    public final NumberPath<Integer> id = createNumber("id", Integer.class);
     public final StringPath title = createString("title");
     public final StringPath content = createString("content");
     public final StringPath file_name = createString("file_name");
     public final StringPath writer = createString("writer");
     public final StringPath date = createString("date");
-    public final StringPath hits = createString("hits");
+    public final NumberPath<Integer> hits = createNumber("hits", Integer.class);
 
 
     public QCommunityTb(String variable) {

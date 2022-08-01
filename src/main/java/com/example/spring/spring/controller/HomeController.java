@@ -23,7 +23,7 @@ public class HomeController {
     public String login(HttpSession session){
 
         if(session.getAttribute("user") != null){
-            return "/community/community";
+            return "redirect:/community";
         }
         return "login";
     }

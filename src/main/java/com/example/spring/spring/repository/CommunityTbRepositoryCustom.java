@@ -7,9 +7,8 @@ import java.util.List;
 public interface CommunityTbRepositoryCustom {
 
     public List<CommunityTb> getCommunity();
-
-    public CommunityTb getCommunityById(long id);
-
+    public CommunityTb getCommunityById(int Community_id);
+    public void hit_Community(CommunityTb communityTb);
 }
 
 
