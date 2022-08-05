@@ -23,9 +23,16 @@ public class CommunityContoller {
     @RequestMapping(value = "/community")
     public String community_view(HttpServletRequest request, Model model){
 
-        List<CommunityTb> communityTb =  communityRepository.getCommunity();
+        List<CommunityTb> communityTb;
 
-        System.out.println(communityTb.get(0));
+        String search = request.getParameter("search");
+        if(search == null){
+            communityTb  =  communityRepository.getCommunity();
+        }else{
+            communityTb = communityRepository.getCommunityBySearch(search);
+        }
+
+
         model.addAttribute("community_list", communityTb);
         return "/community/community";
     }
@@ -77,4 +84,5 @@ public class CommunityContoller {
 
         return "/community/community_detail";
     }
+
 }

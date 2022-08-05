@@ -30,6 +30,16 @@ public class CommunityTbRepositoryCustomImpl extends QuerydslRepositorySupport i
                 .fetch();
     }
 
+    public List<CommunityTb> getCommunityBySearch(String title){
+
+        QCommunityTb qCommunityTb = QCommunityTb.CommunityTb;
+
+        return query
+                .selectFrom(qCommunityTb)
+                .where(qCommunityTb.title.startsWith(title))
+                .fetch();
+    }
+
     @Override
     public CommunityTb getCommunityById(int Community_id){
 
