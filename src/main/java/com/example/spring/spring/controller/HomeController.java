@@ -67,6 +67,13 @@ public class HomeController {
         return "register";
     }
 
+    @RequestMapping(value = "/logout")
+    public String logout(HttpSession session){
+
+        session.invalidate();
+
+        return "login";
+    }
 
 
 }
