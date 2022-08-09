@@ -1,6 +1,8 @@
 package com.example.spring.spring.controller;
 
+import com.example.spring.spring.dao.CommentTb;
 import com.example.spring.spring.dao.CommunityTb;
+import com.example.spring.spring.repository.CommentRepository;
 import com.example.spring.spring.repository.CommunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,9 @@ public class CommunityContoller {
 
     @Autowired
     CommunityRepository communityRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
 
     @RequestMapping(value = "/community")
     public String community_view(HttpServletRequest request, Model model){
@@ -70,9 +75,12 @@ public class CommunityContoller {
 
         try{
             CommunityTb communityTb = communityRepository.getCommunityById(community_id);
-            communityRepository.hit_Community(communityTb);
-            System.out.println(communityTb.getContent());
+            List<CommentTb> commentTb = commentRepository.getCommentList(community_id);
+
+            communityRepository.Increase_like(communityTb);
+
             model.addAttribute("community", communityTb);
+            model.addAttribute("comments",commentTb);
 
         }catch(Exception e){
             System.out.println("db error");
@@ -82,5 +90,23 @@ public class CommunityContoller {
 
 
         return "/community/community_detail";
+    }
+
+    @RequestMapping(value = "/community/comments/{community_id}")
+    public String comment_add(@PathVariable int community_id, HttpServletRequest request, HttpSession session) {
+
+        String comment = request.getParameter("comments");
+        String now = LocalDate.now().toString();
+        System.out.println(comment);
+
+        CommentTb commentTb = new CommentTb();
+        commentTb.setCommunity_id(community_id);
+        commentTb.setComment(comment);
+        commentTb.setWriter((String) session.getAttribute("user"));
+        commentTb.setDate(now);
+        commentRepository.save(commentTb);
+
+
+        return "redirect:/community/detail/" + community_id;
     }
 }

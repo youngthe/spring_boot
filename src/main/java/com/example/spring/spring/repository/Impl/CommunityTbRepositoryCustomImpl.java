@@ -54,7 +54,7 @@ public class CommunityTbRepositoryCustomImpl extends QuerydslRepositorySupport i
 
 
     @Transactional
-    public void hit_Community(CommunityTb communityTb){
+    public void Increase_like(CommunityTb communityTb){
 
         QCommunityTb qCommunityTb = QCommunityTb.CommunityTb;
 
