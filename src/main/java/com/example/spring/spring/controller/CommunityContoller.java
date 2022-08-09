@@ -1,6 +1,8 @@
 package com.example.spring.spring.controller;
 
+import com.example.spring.spring.dao.CommentTb;
 import com.example.spring.spring.dao.CommunityTb;
+import com.example.spring.spring.repository.CommentRepository;
 import com.example.spring.spring.repository.CommunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -20,13 +23,15 @@ public class CommunityContoller {
     @Autowired
     CommunityRepository communityRepository;
 
+    @Autowired
+    CommentRepository commentRepository;
+
     @RequestMapping(value = "/community")
     public String community_view(HttpServletRequest request, Model model){
 
         List<CommunityTb> communityTb =  communityRepository.getCommunity();
-
-        System.out.println(communityTb.get(0));
         model.addAttribute("community_list", communityTb);
+
         return "/community/community";
     }
 
@@ -38,6 +43,10 @@ public class CommunityContoller {
         String content = request.getParameter("content");
         String writer = (String) session.getAttribute("user");
         String now = LocalDate.now().toString();
+
+        if(writer == null){
+            return "/login";
+        }
 
         System.out.println(title + content);
 
@@ -60,21 +69,36 @@ public class CommunityContoller {
     @RequestMapping(value = "/community/detail/{community_id}")
     public String community_detail(@PathVariable int community_id, Model model){
 
-        System.out.println(community_id);
-
         try{
             CommunityTb communityTb = communityRepository.getCommunityById(community_id);
             communityRepository.hit_Community(communityTb);
-            System.out.println(communityTb.getContent());
-            model.addAttribute("community", communityTb);
+            List<CommentTb> commentTb = commentRepository.getCommentList(community_id);
 
+            model.addAttribute("community", communityTb);
+            model.addAttribute("comments",commentTb);
         }catch(Exception e){
             System.out.println("db error");
             System.out.println(e);
         }
 
-
-
         return "/community/community_detail";
+    }
+
+    @RequestMapping(value = "/community/comments/{community_id}")
+    public String comment_add(@PathVariable int community_id, HttpServletRequest request, HttpSession session) {
+
+        String comment = request.getParameter("comments");
+        String now = LocalDate.now().toString();
+        System.out.println(comment);
+
+        CommentTb commentTb = new CommentTb();
+        commentTb.setCommunity_id(community_id);
+        commentTb.setComment(comment);
+        commentTb.setWriter((String)session.getAttribute("user"));
+        commentTb.setDate(now);
+        commentRepository.save(commentTb);
+
+
+        return "redirect:/community/detail/"+community_id;
     }
 }

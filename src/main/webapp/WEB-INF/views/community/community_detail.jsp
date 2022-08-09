@@ -51,23 +51,23 @@
             </form>
         </div>
 
-<%--        <div class="view_comments">--%>
-<%--            <table class="table_comments">--%>
+        <div class="view_comments">
+            <table class="table_comments">
 
-<%--                <c:forEach var="comment" items="${comments}" varStatus="status">--%>
-<%--                            <tr>--%>
-<%--                                <th>닉네임 : ${comment.writer}</th>--%>
-<%--                                <td><input type="button" value="x" onclick="location.href='/community/comment/delete/${comment.id}'"></td>--%>
-<%--                            </tr>--%>
-<%--                            <tr>--%>
-<%--                                <td id="date">${comment.date}</td>--%>
-<%--                            </tr>--%>
-<%--                            <tr>--%>
-<%--                                </td><th id="board-comment"> ${comment.comment}</th>--%>
-<%--                            </tr>--%>
-<%--                </c:forEach>--%>
-<%--            </table>--%>
-<%--        </div>--%>
+                <c:forEach var="comment" items="${comments}" varStatus="status">
+                            <tr>
+                                <th>닉네임 : ${comment.writer}</th>
+                                <td><input type="button" value="x" onclick="location.href='/community/comment/delete/${comment.id}'"></td>
+                            </tr>
+                            <tr>
+                                <td id="date">${comment.date}</td>
+                            </tr>
+                            <tr>
+                                </td><th id="board-comment"> ${comment.comment}</th>
+                            </tr>
+                </c:forEach>
+            </table>
+        </div>
     </body>
 </div>
 </section>
