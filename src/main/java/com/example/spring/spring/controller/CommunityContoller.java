@@ -26,8 +26,11 @@ public class CommunityContoller {
     CommentRepository commentRepository;
 
     @RequestMapping(value = "/community")
-    public String community_view(HttpServletRequest request, Model model){
+    public String community_view(HttpServletRequest request,HttpSession session, Model model){
 
+        if(session.getAttribute("user") == null){
+            return "redirect:/";
+        }
         List<CommunityTb> communityTb;
 
         String search = request.getParameter("search");
@@ -45,6 +48,9 @@ public class CommunityContoller {
     @RequestMapping(value = "/community/save")
     public String community_save(HttpServletRequest request, HttpSession session){
 
+        if(session.getAttribute("user") == null){
+            return "redirect:/";
+        }
         String title = request.getParameter("title");
         String content = request.getParameter("content");
         String writer = (String) session.getAttribute("user");
@@ -63,7 +69,11 @@ public class CommunityContoller {
     }
 
     @RequestMapping(value = "/community/write")
-    public String community_write(){
+    public String community_write(HttpSession session){
+
+        if(session.getAttribute("user") == null){
+            return "redirect:/";
+        }
 
         return "community/community_write";
     }
@@ -108,5 +118,16 @@ public class CommunityContoller {
 
 
         return "redirect:/community/detail/" + community_id;
+    }
+
+    @RequestMapping(value= "/community/delete/{community_id}")
+    public String community_delete(@PathVariable int community_id)
+    {
+
+        communityRepository.deleteById(community_id);
+        CommentTb comment = new CommentTb();
+        comment.setCommunity_id(community_id);
+        commentRepository.deleteByCommunityId(community_id);
+        return "redirect:/community";
     }
 }

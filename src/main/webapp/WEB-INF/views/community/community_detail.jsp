@@ -13,6 +13,13 @@
 <head>
     <title>게시글 상세 보기</title>
     <link href="${path}/resources/css/community_sub.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+
+    </script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 </head>
 <section class="notice">
 <div class="container">
@@ -35,11 +42,11 @@
             </tr>
 
         </table>
-<%--        <div class="bottom">--%>
-<%--            <input type="button" id="bt1" value="수정하기" onclick="location.href='/community/modify/${community.id}'">--%>
-<%--            <input type="button" id="bt2" value="삭제하기" onclick="location.href='/community/delete/${community.id}'">--%>
-<%--            <input type="button" id="bt3" value="돌아가기" onclick="location.href='/community/'">--%>
-<%--        </div>--%>
+        <div class="bottom">
+            <input type="button" class="btn btn-dark m-1" id="bt1" value="수정하기" onclick="location.href='/community/modify/${community.id}'">
+            <input type="button" class="btn btn-dark m-1" id="bt2" value="삭제하기" onclick="location.href='/community/delete/${community.id}'">
+            <input type="button" class="btn btn-dark m-1" id="bt3" value="돌아가기" onclick="location.href='/community/'">
+        </div>
 
 
 

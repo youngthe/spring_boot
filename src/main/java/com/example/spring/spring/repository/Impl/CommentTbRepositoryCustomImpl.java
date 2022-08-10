@@ -9,6 +9,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public class CommentTbRepositoryCustomImpl extends QuerydslRepositorySupport implements CommentTbRepositoryCustom {
@@ -32,6 +33,15 @@ public class CommentTbRepositoryCustomImpl extends QuerydslRepositorySupport imp
                 .where(qCommentTb.community_id.eq(Community_id))
                 .fetch();
 
+    }
+
+    @Override
+    @Transactional
+    public void deleteByCommunityId(int Community_id){
+
+        QCommentTb qCommentTb = QCommentTb.CommunityTb;
+
+        query.delete(qCommentTb).where(qCommentTb.community_id.eq(Community_id)).execute();
     }
 
 }
