@@ -27,6 +27,7 @@ public class CommunityTbRepositoryCustomImpl extends QuerydslRepositorySupport i
 
         return query
                 .selectFrom(qCommunityTb)
+                .orderBy(qCommunityTb.id.desc())
                 .fetch();
     }
 
@@ -37,6 +38,7 @@ public class CommunityTbRepositoryCustomImpl extends QuerydslRepositorySupport i
         return query
                 .selectFrom(qCommunityTb)
                 .where(qCommunityTb.title.startsWith(title))
+                .orderBy(qCommunityTb.id.desc())
                 .fetch();
     }
 
