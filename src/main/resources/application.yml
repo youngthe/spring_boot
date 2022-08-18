@@ -8,4 +8,7 @@ spring:
       ddl-auto: update
     show-sql: true
 
-
+server:
+  servlet:
+    session:
+      timeout: 30m      # 60m * 24h * 30d
