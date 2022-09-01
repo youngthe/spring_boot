@@ -121,13 +121,24 @@ public class CommunityContoller {
     }
 
     @RequestMapping(value= "/community/delete/{community_id}")
-    public String community_delete(@PathVariable int community_id)
+    public String community_delete(@PathVariable int community_id, HttpServletRequest request, HttpSession session)
     {
 
-        communityRepository.deleteById(community_id);
-        CommentTb comment = new CommentTb();
-        comment.setCommunity_id(community_id);
-        commentRepository.deleteByCommunityId(community_id);
+        String deleter = (String) session.getAttribute("user");
+        System.out.println(deleter);
+
+         CommunityTb communityTb = communityRepository.getCommunityById(community_id);
+
+         if(communityTb.getWriter().equals(deleter)){
+             communityRepository.deleteById(community_id);
+             CommentTb comment = new CommentTb();
+             comment.setCommunity_id(community_id);
+             commentRepository.deleteByCommunityId(community_id);
+         }else{
+
+             //권한이 없을 때 메세지를 띄워줘야함
+
+         }
         return "redirect:/community";
     }
 }
