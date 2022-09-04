@@ -2,8 +2,11 @@ package com.example.spring.spring.controller;
 
 import com.example.spring.spring.dao.CommentTb;
 import com.example.spring.spring.dao.CommunityTb;
+import com.example.spring.spring.dao.UserTb;
 import com.example.spring.spring.repository.CommentRepository;
 import com.example.spring.spring.repository.CommunityRepository;
+import com.example.spring.spring.repository.UserTbRepositoryCustom;
+import com.example.spring.spring.utils.ScriptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -121,23 +126,21 @@ public class CommunityContoller {
     }
 
     @RequestMapping(value= "/community/delete/{community_id}")
-    public String community_delete(@PathVariable int community_id, HttpServletRequest request, HttpSession session)
-    {
+    public String community_delete(@PathVariable int community_id, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
 
         String deleter = (String) session.getAttribute("user");
-        System.out.println(deleter);
 
-         CommunityTb communityTb = communityRepository.getCommunityById(community_id);
+        CommunityTb community = communityRepository.getCommunityById(community_id);
+        String writer = community.getWriter();
 
-         if(communityTb.getWriter().equals(deleter)){
-             communityRepository.deleteById(community_id);
-             CommentTb comment = new CommentTb();
-             comment.setCommunity_id(community_id);
-             commentRepository.deleteByCommunityId(community_id);
+        if(writer.equals(deleter)){
+            communityRepository.deleteById(community_id);
+            CommentTb comment = new CommentTb();
+            comment.setCommunity_id(community_id);
+            commentRepository.deleteByCommunityId(community_id);
+            ScriptUtil.alert_location(response, "삭제되었습니다.", "/community");
          }else{
-
-             //권한이 없을 때 메세지를 띄워줘야함
-
+             ScriptUtil.alert_back(response, "삭제할 수 없습니다.");
          }
         return "redirect:/community";
     }
