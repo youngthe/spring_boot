@@ -144,4 +144,44 @@ public class CommunityContoller {
          }
         return "redirect:/community";
     }
+
+    @RequestMapping(value = "/community/modify/{community_id}")
+    public String communit_modify(@PathVariable int community_id, HttpServletResponse response,HttpServletRequest request, HttpSession session, Model model) throws IOException {
+
+        String user = (String) session.getAttribute("user");
+
+        CommunityTb communityTb = communityRepository.getCommunityById(community_id);
+        if(user.equals(communityTb.getWriter())){
+
+            model.addAttribute("community", communityTb);
+
+        }else{
+            ScriptUtil.alert_back(response, "수정할 수 있는 권한이 없습니다.");
+        }
+        return "community/community_modify";
+    }
+
+    @RequestMapping(value = "/community/modify/{community_id}/save")
+    public String communit_modify_save(@PathVariable int community_id, HttpServletResponse response,HttpSession session, Model model, HttpServletRequest request) throws IOException {
+
+
+        String user = (String) session.getAttribute("user");
+        System.out.println("user : "+ user);
+        CommunityTb communityTb = communityRepository.getCommunityById(community_id);
+        System.out.println("writer : "+ communityTb.getWriter());
+
+        if(user.equals(communityTb.getWriter())){
+            String title = request.getParameter("title");
+            String content = request.getParameter("content");
+            System.out.println(title);
+            System.out.println(content);
+            communityTb.setTitle(title);
+            communityTb.setContent(content);
+            communityRepository.updateCommunity(communityTb);
+        }else{
+            ScriptUtil.alert_back(response, "수정할 수 있는 권한이 없습니다.");
+        }
+
+        return "redirect:/community";
+    }
 }

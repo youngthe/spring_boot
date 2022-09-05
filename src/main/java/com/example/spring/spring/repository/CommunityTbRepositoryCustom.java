@@ -11,6 +11,8 @@ public interface CommunityTbRepositoryCustom {
     public List<CommunityTb> getCommunityBySearch(String title);
     public CommunityTb getCommunityById(int Community_id);
     public void Increase_like(CommunityTb communityTb);
+
+    public void updateCommunity(CommunityTb communityTb);
 }
 
 
