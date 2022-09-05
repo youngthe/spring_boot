@@ -75,5 +75,9 @@ public class HomeController {
         return "login";
     }
 
+    @RequestMapping(value = "/test")
+    public String popup(){
 
+        return "popup";
+    }
 }
