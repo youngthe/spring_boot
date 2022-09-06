@@ -13,17 +13,18 @@
 <head>
     <title>게시글 상세 보기</title>
     <link href="${path}/resources/css/community_sub.css" rel="stylesheet"/>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 
-    </script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+            crossorigin="anonymous"></script>S
 </head>
+
 <section class="notice">
 <div class="container">
-
     <body>
         <table class="board-table">
             <tr>
@@ -43,12 +44,12 @@
 
         </table>
         <div class="bottom">
-            <input type="button" class="btn btn-dark m-1" id="bt1" value="수정하기" onclick="location.href='/community/modify/${community.id}'">
-            <input type="button" class="btn btn-dark m-1" id="bt2" value="삭제하기" onclick="location.href='/community/delete/${community.id}'">
-            <input type="button" class="btn btn-dark m-1" id="bt3" value="돌아가기" onclick="location.href='/community/'">
+<%--            <input type="button" class="btn btn-dark m-1" id="modify_button" value="수정하기" onclick="location.href='/community/modify/${community.id}'">--%>
+            <input type="button" class="btn btn-dark m-1" id="modify_button" value="수정하기">
+<%--            <input type="button" class="btn btn-dark m-1" id="delete_button" value="삭제하기" onclick="location.href='/community/delete/${community.id}'">--%>
+            <input type="button" class="btn btn-dark m-1" id="delete_button" value="삭제하기">
+            <input type="button" class="btn btn-dark m-1" id="back_button" value="돌아가기" onclick="location.href='/community/'">
         </div>
-
-
 
 
         <div class="input_comment">
@@ -78,4 +79,33 @@
     </body>
 </div>
 </section>
+
+<%--Modal--%>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">안내문</h5>
+            </div>
+            <div class="modal-body">
+                정말로 삭제하시겠습니까?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModalBtn">아니요</button>
+                <button type="button" class="btn btn-primary" onclick="location.href='/community/delete/${community.id}'">예</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#delete_button').on('click', function(){
+        $('#exampleModal').modal('show');
+        console.log("click open");
+    });
+
+    $('#closeModalBtn').on('click', function(){
+        $('#exampleModal').modal('hide');
+        console.log("click close");
+    });
+</script>
 </html>

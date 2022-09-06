@@ -140,7 +140,7 @@ public class CommunityContoller {
             commentRepository.deleteByCommunityId(community_id);
             ScriptUtil.alert_location(response, "삭제되었습니다.", "/community");
          }else{
-             ScriptUtil.alert_back(response, "삭제할 수 없습니다.");
+             ScriptUtil.alert_location(response, "삭제할 수 없습니다.", "/community/detail/"+community_id);
          }
         return "redirect:/community";
     }
