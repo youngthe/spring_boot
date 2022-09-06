@@ -84,10 +84,11 @@ public class CommunityContoller {
     }
 
     @RequestMapping(value = "/community/detail/{community_id}")
-    public String community_detail(@PathVariable int community_id, Model model){
+    public String community_detail(@PathVariable int community_id, Model model, HttpSession session){
 
         System.out.println(community_id);
-
+        String user = (String)session.getAttribute("user");
+        System.out.println(user);
         try{
             CommunityTb communityTb = communityRepository.getCommunityById(community_id);
             List<CommentTb> commentTb = commentRepository.getCommentList(community_id);
@@ -96,6 +97,7 @@ public class CommunityContoller {
 
             model.addAttribute("community", communityTb);
             model.addAttribute("comments",commentTb);
+            model.addAttribute("user", user);
 
         }catch(Exception e){
             System.out.println("db error");

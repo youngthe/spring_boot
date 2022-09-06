@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <html>
-
+user name : ${user}
 <head>
     <title>게시글 상세 보기</title>
     <link href="${path}/resources/css/community_sub.css" rel="stylesheet"/>
@@ -20,7 +20,7 @@
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-            crossorigin="anonymous"></script>S
+            crossorigin="anonymous"></script>
 </head>
 
 <section class="notice">
@@ -44,11 +44,11 @@
 
         </table>
         <div class="bottom">
-<%--            <input type="button" class="btn btn-dark m-1" id="modify_button" value="수정하기" onclick="location.href='/community/modify/${community.id}'">--%>
-            <input type="button" class="btn btn-dark m-1" id="modify_button" value="수정하기">
-<%--            <input type="button" class="btn btn-dark m-1" id="delete_button" value="삭제하기" onclick="location.href='/community/delete/${community.id}'">--%>
-            <input type="button" class="btn btn-dark m-1" id="delete_button" value="삭제하기">
-            <input type="button" class="btn btn-dark m-1" id="back_button" value="돌아가기" onclick="location.href='/community/'">
+            <c:if test="${user eq community.writer}">
+                <input type="button" class="btn btn-dark m-1" id="modify_button" value="수정하기">
+                <input type="button" class="btn btn-dark m-1" id="delete_button" value="삭제하기">
+            </c:if>
+                <input type="button" class="btn btn-dark m-1" id="back_button" value="돌아가기" onclick="location.href='/community/'">
         </div>
 
 
