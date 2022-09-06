@@ -9,7 +9,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <html>
-user name : ${user}
 <head>
     <title>게시글 상세 보기</title>
     <link href="${path}/resources/css/community_sub.css" rel="stylesheet"/>
@@ -41,17 +40,14 @@ user name : ${user}
             <tr>
                 <td colspan="4">${community.content}</td>
             </tr>
-
         </table>
         <div class="bottom">
             <c:if test="${user eq community.writer}">
-                <input type="button" class="btn btn-dark m-1" id="modify_button" value="수정하기">
+                <input type="button" class="btn btn-dark m-1" id="modify_button" value="수정하기" onclick="location.href='/community/modify/${community.id}'">
                 <input type="button" class="btn btn-dark m-1" id="delete_button" value="삭제하기">
             </c:if>
                 <input type="button" class="btn btn-dark m-1" id="back_button" value="돌아가기" onclick="location.href='/community/'">
         </div>
-
-
         <div class="input_comment">
             <form action="/community/comments/${community.id}" method="post">
                 <input type="text" name="comments">
