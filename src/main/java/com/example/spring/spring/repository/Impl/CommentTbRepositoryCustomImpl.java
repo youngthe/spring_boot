@@ -26,22 +26,22 @@ public class CommentTbRepositoryCustomImpl extends QuerydslRepositorySupport imp
     @Override
     public List<CommentTb> getCommentList(int Community_id){
 
-        QCommentTb qCommentTb = QCommentTb.CommunityTb;
+        QCommentTb qCommentTb = QCommentTb.comments;
 
         return query
                 .selectFrom(qCommentTb)
-                .where(qCommentTb.community_id.eq(Community_id))
+                .where(qCommentTb.comment_id.eq(Community_id))
                 .fetch();
 
     }
 
     @Override
     @Transactional
-    public void deleteByCommunityId(int Community_id){
+    public void deleteByCommunityId(int comment_id){
 
-        QCommentTb qCommentTb = QCommentTb.CommunityTb;
+        QCommentTb qCommentTb = QCommentTb.comments;
 
-        query.delete(qCommentTb).where(qCommentTb.community_id.eq(Community_id)).execute();
+        query.delete(qCommentTb).where(qCommentTb.comment_id.eq(comment_id)).execute();
     }
 
 }

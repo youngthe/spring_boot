@@ -28,7 +28,7 @@ public class HomeController {
         return "login";
     }
 
-    @RequestMapping(value = "/loginCheck")
+    @RequestMapping(value = "/login-check")
     public String loginCheck(HttpServletRequest request, HttpSession session){
         String id = request.getParameter("id");
         String pw = request.getParameter("pw");

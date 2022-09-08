@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +27,6 @@ public class CommunityContoller {
 
     @Autowired
     CommunityRepository communityRepository;
-
     @Autowired
     CommentRepository commentRepository;
 
@@ -127,7 +127,13 @@ public class CommunityContoller {
         return "redirect:/community/detail/" + community_id;
     }
 
-    @RequestMapping(value= "/community/delete/{community_id}")
+    @RequestMapping(value = "/community/comment/delete/{comment_id}")
+    public String comment_delete(@PathVariable int comment_id){
+        commentRepository.deleteByCommunityId(comment_id);
+        return "redirect:/community";
+    }
+
+    @RequestMapping(value= "/community/delete/{community_id}", method = RequestMethod.DELETE)
     public String community_delete(@PathVariable int community_id, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
 
         String deleter = (String) session.getAttribute("user");
@@ -186,4 +192,5 @@ public class CommunityContoller {
 
         return "redirect:/community";
     }
+
 }
