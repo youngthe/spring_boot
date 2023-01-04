@@ -3,6 +3,8 @@ package com.example.spring.spring.controller;
 import com.example.spring.spring.dao.UserTb;
 import com.example.spring.spring.repository.UserRepository;
 import org.apache.commons.logging.Log;
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +30,7 @@ public class HomeController {
         return "login";
     }
 
-    @RequestMapping(value = "/login-check")
+    @RequestMapping(value = "/loginCheck")
     public String loginCheck(HttpServletRequest request, HttpSession session){
         String id = request.getParameter("id");
         String pw = request.getParameter("pw");

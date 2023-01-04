@@ -11,7 +11,7 @@ public class CommentTb {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private int id;
 
     @Column(name = "community_id")
     private long community_id;
@@ -54,13 +54,13 @@ public class CommentTb {
     }
 
     public void setDate(String date) {
-        Date = date;
+        this.Date = date;
     }
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 }

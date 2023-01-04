@@ -31,7 +31,7 @@ public class CommunityContoller {
     CommentRepository commentRepository;
 
     @RequestMapping(value = "/community")
-    public String community_view(HttpServletRequest request,HttpSession session, Model model){
+    public String community_view(HttpServletRequest request, HttpSession session, Model model){
 
         if(session.getAttribute("user") == null){
             return "redirect:/";
@@ -109,35 +109,12 @@ public class CommunityContoller {
         return "/community/community_detail";
     }
 
-    @RequestMapping(value = "/community/comments/{community_id}")
-    public String comment_add(@PathVariable int community_id, HttpServletRequest request, HttpSession session) {
-
-        String comment = request.getParameter("comments");
-        String now = LocalDate.now().toString();
-        System.out.println(comment);
-
-        CommentTb commentTb = new CommentTb();
-        commentTb.setCommunity_id(community_id);
-        commentTb.setComment(comment);
-        commentTb.setWriter((String) session.getAttribute("user"));
-        commentTb.setDate(now);
-        commentRepository.save(commentTb);
 
 
-        return "redirect:/community/detail/" + community_id;
-    }
-
-    @RequestMapping(value = "/community/comment/delete/{comment_id}")
-    public String comment_delete(@PathVariable int comment_id){
-        commentRepository.deleteByCommunityId(comment_id);
-        return "redirect:/community";
-    }
-
-    @RequestMapping(value= "/community/delete/{community_id}", method = RequestMethod.DELETE)
+    @RequestMapping(value= "/community/delete/{community_id}")
     public String community_delete(@PathVariable int community_id, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws IOException {
 
         String deleter = (String) session.getAttribute("user");
-
         CommunityTb community = communityRepository.getCommunityById(community_id);
         String writer = community.getWriter();
 

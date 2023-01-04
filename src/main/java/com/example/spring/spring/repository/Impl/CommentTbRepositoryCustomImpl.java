@@ -1,9 +1,7 @@
 package com.example.spring.spring.repository.Impl;
 
 import com.example.spring.spring.dao.CommentTb;
-import com.example.spring.spring.dao.CommunityTb;
 import com.example.spring.spring.domain.QCommentTb;
-import com.example.spring.spring.domain.QCommunityTb;
 import com.example.spring.spring.repository.CommentTbRepositoryCustom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,18 +28,28 @@ public class CommentTbRepositoryCustomImpl extends QuerydslRepositorySupport imp
 
         return query
                 .selectFrom(qCommentTb)
-                .where(qCommentTb.comment_id.eq(Community_id))
+                .where(qCommentTb.community_id.eq(Community_id))
                 .fetch();
 
     }
 
     @Override
     @Transactional
-    public void deleteByCommunityId(int comment_id){
+    public void deleteByCommunityId(int community_id){
+
+        QCommentTb qCommentTb = QCommentTb.comments;
+
+        query.delete(qCommentTb).where(qCommentTb.comment_id.eq(community_id)).execute();
+    }
+
+    @Override
+    @Transactional
+    public void deleteComment(int comment_id){
 
         QCommentTb qCommentTb = QCommentTb.comments;
 
         query.delete(qCommentTb).where(qCommentTb.comment_id.eq(comment_id)).execute();
     }
+
 
 }
