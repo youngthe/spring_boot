@@ -1,8 +1,7 @@
 package com.example.spring.spring.dao;
 
-import org.hibernate.annotations.Columns;
-
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "COMMUNITY")
@@ -21,15 +20,30 @@ public class CommunityTb {
     @Column(name = "file_name")
     private String file_name;
 
-    @Column(name = "writer")
-    private String writer;
 
     @Column(name = "date")
-    private String date;
+    private LocalDate date;
 
     @Column(name = "hits")
     private int hits;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usertb_id")
+    private UserTb user;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comment_id")
+    private CommentTb comment;
+
+
+    public UserTb getUser() {
+        return user;
+    }
+
+    public void setUser(UserTb user) {
+        this.user = user;
+    }
 
     public String getFile_name() {
         return file_name;
@@ -47,20 +61,12 @@ public class CommunityTb {
         this.hits = hits;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    public String getWriter() {
-        return writer;
-    }
-
-    public void setWriter(String writer) {
-        this.writer = writer;
     }
 
     public int getId() {
@@ -86,4 +92,6 @@ public class CommunityTb {
     public void setContent(String content) {
         this.content = content;
     }
+
+
 }

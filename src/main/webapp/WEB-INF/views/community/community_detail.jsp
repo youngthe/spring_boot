@@ -31,7 +31,7 @@
                 <th>조회수</th><td>${community.hits}</td>
             </tr>
             <tr>
-                <th>작성자</th><td>${community.writer}</td>
+                <th>작성자</th><td>${community.user.name}</td>
                 <th>작성시간</th><td>${community.date}</td>
             </tr>
             <tr>
@@ -42,7 +42,7 @@
             </tr>
         </table>
         <div class="bottom">
-            <c:if test="${user eq community.writer}">
+            <c:if test="${user eq community.user.account}">
                 <input type="button" class="btn btn-dark m-1" id="modify_button" value="수정하기" onclick="location.href='/community/modify/${community.id}'">
                 <input type="button" class="btn btn-dark m-1" id="delete_button" value="삭제하기">
             </c:if>
@@ -60,7 +60,11 @@
 
                 <c:forEach var="comment" items="${comments}" varStatus="status">
                             <tr>
-                                <th>닉네임 : ${comment.writer}</th>
+<%--                                <th>닉네임 : ${comment.user.name}</th>--%>
+                                <form action="/community/recomments/${comment.id}" method="post">
+                                    <input type="text" name="comments">
+                                    <input type="submit" value="댓글">
+                                </form>
                                 <td><input type="button" value="x" onclick="location.href='/community/comment/delete/${comment.id}'"></td>
                             </tr>
                             <tr>

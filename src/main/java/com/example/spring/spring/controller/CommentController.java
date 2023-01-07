@@ -48,9 +48,28 @@ public class CommentController {
         CommentTb commentTb = new CommentTb();
         commentTb.setCommunity_id(community_id);
         commentTb.setComment(comment);
-        commentTb.setWriter((String) session.getAttribute("user"));
         commentTb.setDate(now);
         commentRepository.save(commentTb);
         return "redirect:/community/detail/" + community_id;
+    }
+
+    @RequestMapping(value = "/community/recomments/{commentId}")
+    public String recomment_add(@PathVariable int commentId, HttpServletRequest request, HttpSession session) {
+
+        String recomment = request.getParameter("comments");
+        String comment_num = request.getParameter("");
+        String now = LocalDate.now().toString();
+
+        int communityId = commentRepository.getCommunityIdByCommentId(commentId);
+
+        System.out.println(recomment);
+
+        CommentTb commentTb = new CommentTb();
+        commentTb.setCommunity_id(communityId);
+        commentTb.setComment(recomment);
+        commentTb.setDate(now);
+        commentTb.setRef(commentId);
+        commentRepository.save(commentTb);
+        return "redirect:/";
     }
 }

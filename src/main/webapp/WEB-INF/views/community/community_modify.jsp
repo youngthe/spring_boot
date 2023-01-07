@@ -37,7 +37,7 @@
 <article>
     <div class="container mt-5" role="main"><h2>게시판</h2>
         <form name="form" id="form" role="form" method="post"
-              action="/community/modify/${community.id}/save">
+              action="/community/modify/${community.id}">
             <div class="mb-3"><label for="title">제목</label>
                 <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요" value="${community.title}"></div>
             <div class="mb-3"><label for="content">내용</label>

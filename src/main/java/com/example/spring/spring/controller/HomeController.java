@@ -32,17 +32,17 @@ public class HomeController {
 
     @RequestMapping(value = "/loginCheck")
     public String loginCheck(HttpServletRequest request, HttpSession session){
-        String id = request.getParameter("id");
+        String account = request.getParameter("account");
         String pw = request.getParameter("pw");
 
         UserTb userTb = new UserTb();
-        userTb.setId(id);
+        userTb.setAccount(account);
         userTb.setPw(pw);
 
         System.out.println(userRepository.LoginCheck(userTb));
 
         if(userRepository.LoginCheck(userTb)){
-            session.setAttribute("user", id);
+            session.setAttribute("user", account);
             return "redirect:/community";
         }else{
             return "login";
@@ -60,7 +60,7 @@ public class HomeController {
 
         if(request.getMethod().equals("POST")){
             UserTb userTb = new UserTb();
-            userTb.setId(id);
+            userTb.setAccount(id);
             userTb.setPw(pw);
             userRepository.save(userTb);
             return "login";

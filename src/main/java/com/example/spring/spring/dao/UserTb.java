@@ -5,6 +5,8 @@ import com.querydsl.core.types.EntityPath;
 import org.hibernate.annotations.Columns;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "USER")
@@ -12,28 +14,39 @@ public class UserTb {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer num;
+    private Integer id;
 
     @Column(length = 20, nullable = false)
-    private String id;
+    private String account;
 
     @Column(length = 20, nullable = false)
     private String pw;
 
-    public Integer getNum() {
-        return num;
-    }
+    @Column(length = 20)
+    private String name;
 
-    public void setNum(Integer num) {
-        this.num = num;
-    }
+    @OneToMany(mappedBy = "user")
+    private List<CommunityTb> CommunityTb = new ArrayList<CommunityTb>();
 
-    public String getId() {
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public Integer getId() {
         return id;
     }
+    public void setId(Integer pk) {
+        this.id = pk;
+    }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public String getPw() {
@@ -43,4 +56,6 @@ public class UserTb {
     public void setPw(String pw) {
         this.pw = pw;
     }
+
+
 }

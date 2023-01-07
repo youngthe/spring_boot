@@ -13,8 +13,8 @@
 <body>
 <script>
     function Checkform(){
-        if(form.id.value == ""){
-            form.id.focus();
+        if(form.account.value == ""){
+            form.account.focus();
             alert("아이디를 입력하세요 ! ");
             return false;
         }else if(form.pw.value == ""){
@@ -30,7 +30,7 @@
     <form name = form action="/loginCheck" method="post">
         <table>
             <tr>
-                <td>id</td><td><input type="text" name="id" id="id"></td>
+                <td>id</td><td><input type="text" name="account" id="account"></td>
             </tr>
             <tr>
                 <td>pw</td><td><input type="password" name="pw" id="pw"></td>

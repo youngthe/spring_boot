@@ -4,13 +4,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "COMMENTS")
 public class CommentTb {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "community_id")
@@ -19,11 +21,12 @@ public class CommentTb {
     @Column(name = "comment")
     private String comment;
 
-    @Column(name = "writer")
-    private String writer;
+    @Column(name = "date")
+    private String date;
 
-    @Column(name = "Date")
-    private String Date;
+    @Column(name = "ref")
+    private int ref;
+
 
     public long getCommunity_id() {
         return community_id;
@@ -41,20 +44,12 @@ public class CommentTb {
         this.comment = comment;
     }
 
-    public String getWriter() {
-        return writer;
-    }
-
-    public void setWriter(String writer) {
-        this.writer = writer;
-    }
-
     public String getDate() {
-        return Date;
+        return date;
     }
 
     public void setDate(String date) {
-        this.Date = date;
+        this.date = date;
     }
     public int getId() {
         return id;
@@ -63,4 +58,14 @@ public class CommentTb {
     public void setId(int id) {
         this.id = id;
     }
+
+    public int getRef() {
+        return ref;
+    }
+
+    public void setRef(int ref) {
+        this.ref = ref;
+    }
+
+
 }

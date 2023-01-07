@@ -69,7 +69,8 @@
                     <th>
                         <a href="/community/detail/${list.id}">${list.title}</a>
                     </th>
-                    <td>${list.writer}</td>
+                    <td>${list.user.name}</td>
+
                     <td>${list.date}</td>
                     <td>${list.hits}</td>
                 </tr>

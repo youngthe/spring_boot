@@ -22,7 +22,7 @@ public class UserTbRepositoryCustomImpl extends QuerydslRepositorySupport implem
         QUserTb qusertb = QUserTb.user;
 
         if(query.selectFrom(qusertb)
-                .where(qusertb.id.eq(userTb.getId()))
+                .where(qusertb.account.eq(userTb.getAccount()))
                 .where(qusertb.pw.eq(userTb.getPw()))
                 .fetch().isEmpty()){
 
@@ -31,5 +31,37 @@ public class UserTbRepositoryCustomImpl extends QuerydslRepositorySupport implem
             return true;
         }
 
+    }
+
+    public UserTb getUserTbByAccount(String account){
+
+        QUserTb qusertb = QUserTb.user;
+
+        return query
+                .selectFrom(qusertb)
+                .where(qusertb.account.eq(account))
+                .fetchOne();
+
+    }
+
+    public String getNameByAccount(String account){
+
+        QUserTb qusertb = QUserTb.user;
+
+        return query
+                .selectFrom(qusertb)
+                .where(qusertb.account.eq(account))
+                .fetchOne()
+                .getName();
+    }
+
+    public String getNameByPk(int id){
+
+        QUserTb qusertb = QUserTb.user;
+
+        return query.selectFrom(qusertb)
+                .where(qusertb.id.eq(id))
+                .fetchOne()
+                .getName();
     }
 }

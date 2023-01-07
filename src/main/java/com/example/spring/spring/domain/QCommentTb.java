@@ -11,7 +11,7 @@ import static com.querydsl.core.types.PathMetadataFactory.forVariable;
 public class QCommentTb extends EntityPathBase<CommentTb> {
     public static final QCommentTb comments = new QCommentTb("COMMENTS");
     public final StringPath writer = createString("writer");
-    public final NumberPath<Integer> comment_id = createNumber("id", Integer.class);
+    public final NumberPath<Integer> id = createNumber("id", Integer.class);
     public final NumberPath<Integer> community_id = createNumber("community_id", Integer.class);
     public final StringPath comment = createString("comment");
     public final StringPath Date = createString("Date");

@@ -34,12 +34,25 @@ public class CommentTbRepositoryCustomImpl extends QuerydslRepositorySupport imp
     }
 
     @Override
+    public int getCommunityIdByCommentId(int CommentId){
+
+        QCommentTb qCommentTb = QCommentTb.comments;
+
+        return (int) query
+                .selectFrom(qCommentTb)
+                .where(qCommentTb.id.eq(CommentId))
+                .fetch().get(0).getCommunity_id();
+
+    }
+
+
+    @Override
     @Transactional
     public void deleteByCommunityId(int community_id){
 
         QCommentTb qCommentTb = QCommentTb.comments;
 
-        query.delete(qCommentTb).where(qCommentTb.comment_id.eq(community_id)).execute();
+        query.delete(qCommentTb).where(qCommentTb.id.eq(community_id)).execute();
     }
 
     @Override
@@ -48,7 +61,7 @@ public class CommentTbRepositoryCustomImpl extends QuerydslRepositorySupport imp
 
         QCommentTb qCommentTb = QCommentTb.comments;
 
-        query.delete(qCommentTb).where(qCommentTb.comment_id.eq(comment_id)).execute();
+        query.delete(qCommentTb).where(qCommentTb.id.eq(comment_id)).execute();
     }
 
 

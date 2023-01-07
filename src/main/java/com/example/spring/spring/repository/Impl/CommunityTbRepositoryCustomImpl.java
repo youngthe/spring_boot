@@ -2,6 +2,7 @@ package com.example.spring.spring.repository.Impl;
 
 import com.example.spring.spring.dao.CommunityTb;
 import com.example.spring.spring.domain.QCommunityTb;
+import com.example.spring.spring.domain.QUserTb;
 import com.example.spring.spring.repository.CommunityTbRepositoryCustom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class CommunityTbRepositoryCustomImpl extends QuerydslRepositorySupport i
     public List<CommunityTb> getCommunity() {
 
         QCommunityTb qCommunityTb = QCommunityTb.CommunityTb;
+        QUserTb qusertb = QUserTb.user;
 
         return query
                 .selectFrom(qCommunityTb)
