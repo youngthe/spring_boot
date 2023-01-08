@@ -49,6 +49,7 @@ public class CommentController {
         commentTb.setCommunity_id(community_id);
         commentTb.setComment(comment);
         commentTb.setDate(now);
+        commentTb.setRef(commentTb.getId());
         commentRepository.save(commentTb);
         return "redirect:/community/detail/" + community_id;
     }

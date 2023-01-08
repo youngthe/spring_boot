@@ -2,6 +2,7 @@ package com.example.spring.spring.dao;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class CommentTb {
     @Column(name = "date")
     private String date;
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ref")
     private int ref;
 
