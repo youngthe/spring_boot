@@ -63,26 +63,26 @@
                     <c:choose>
                         <c:when test="${a eq comment.parent.id}">
                             <tr>
-                                <td id="r">   ${comment.parent.id}</td>
+                                <td id="id">   ${comment.parent.id}</td>
                             </tr>
 
                             <tr>
                                 <td id="date">     ${comment.date}</td>
                             </tr>
                             <tr>
-                                </td><th id="board-comment">   ${comment.comment}</th>
+                                <th id="board-comment">${comment.comment}</th>
                             </tr>
                             <tr>
-                                    <%--                                <th>닉네임 : ${comment.user.name}</th>--%>
-                                <form action="/community/recomments/${comment.id}" method="post">
-                                    <input type="text" name="comments">
-                                    <input type="submit" value="댓글">
-                                </form>
-                                <td><input type="button" value="x" onclick="location.href='/community/comment/delete/${comment.id}'"></td>
+                            <td>
+                                <input type="button" value="x" onclick="location.href='/community/comment/delete/${comment.id}'"></td>
+                            </td>
                             </tr>
                         </c:when>
 
                         <c:otherwise>
+                            </table>
+                            <table class="table_comments">
+
                             <tr>
                                 <td id="id2">${comment.parent.id}</td>
                             </tr>
@@ -91,23 +91,26 @@
                                 <td id="date2">${comment.date}</td>
                             </tr>
                             <tr>
-                                </td><th id="board-comment2"> ${comment.comment}</th>
+                                <th id="board-comment2"> ${comment.comment}</th>
                             </tr>
                             <tr>
-                                    <%--                                <th>닉네임 : ${comment.user.name}</th>--%>
-                                <form action="/community/recomments/${comment.id}" method="post">
-                                    <input type="text" name="comments">
-                                    <input type="submit" value="댓글">
-                                </form>
-                                <td><input type="button" value="x" onclick="location.href='/community/comment/delete/${comment.id}'"></td>
+                                <td>
+                                    <form action="/community/recomments/${comment.id}" method="post">
+                                        <input type="text" name="comments">
+                                        <input type="submit" value="댓글">
+                                    </form>
+                                    <input type="button" value="x" onclick="location.href='/community/comment/delete/${comment.id}'">
+                                </td>
                             </tr>
                         </c:otherwise>
 
                     </c:choose>
 
                     <c:set var="a" value="${comment.parent.id}"></c:set>
+
                 </c:forEach>
             </table>
+
         </div>
     </body>
 </div>

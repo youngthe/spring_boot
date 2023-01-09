@@ -27,8 +27,6 @@ public class CommentTb {
     @Column(name = "date")
     private String date;
 
-    @Column(name = "ref")
-    private int ref;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private CommentTb parent;
@@ -75,11 +73,4 @@ public class CommentTb {
         this.parent = parent;
     }
 
-    public int getRef() {
-        return ref;
-    }
-
-    public void setRef(int ref) {
-        this.ref = ref;
-    }
 }
