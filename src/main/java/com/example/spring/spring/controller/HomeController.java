@@ -54,7 +54,7 @@ public class HomeController {
 
         String id = request.getParameter("id");
         String pw = request.getParameter("pw");
-
+        String name = request.getParameter("name");
         System.out.println(id);
         System.out.println(pw);
 
@@ -62,6 +62,7 @@ public class HomeController {
             UserTb userTb = new UserTb();
             userTb.setAccount(id);
             userTb.setPw(pw);
+            userTb.setName(name);
             userRepository.save(userTb);
             return "login";
         }

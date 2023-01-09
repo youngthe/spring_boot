@@ -57,24 +57,55 @@
 
         <div class="view_comments">
             <table class="table_comments">
-
                 <c:forEach var="comment" items="${comments}" varStatus="status">
 
-                        <tr>
-                            <td id="date">${comment.date}</td>
-                        </tr>
-                        <tr>
-                            </td><th id="board-comment"> ${comment.comment}</th>
-                        </tr>
+
+                    <c:choose>
+                        <c:when test="${a eq comment.parent.id}">
                             <tr>
-<%--                                <th>닉네임 : ${comment.user.name}</th>--%>
+                                <td id="r">   ${comment.parent.id}</td>
+                            </tr>
+
+                            <tr>
+                                <td id="date">     ${comment.date}</td>
+                            </tr>
+                            <tr>
+                                </td><th id="board-comment">   ${comment.comment}</th>
+                            </tr>
+                            <tr>
+                                    <%--                                <th>닉네임 : ${comment.user.name}</th>--%>
                                 <form action="/community/recomments/${comment.id}" method="post">
                                     <input type="text" name="comments">
                                     <input type="submit" value="댓글">
                                 </form>
                                 <td><input type="button" value="x" onclick="location.href='/community/comment/delete/${comment.id}'"></td>
                             </tr>
+                        </c:when>
 
+                        <c:otherwise>
+                            <tr>
+                                <td id="id2">${comment.parent.id}</td>
+                            </tr>
+
+                            <tr>
+                                <td id="date2">${comment.date}</td>
+                            </tr>
+                            <tr>
+                                </td><th id="board-comment2"> ${comment.comment}</th>
+                            </tr>
+                            <tr>
+                                    <%--                                <th>닉네임 : ${comment.user.name}</th>--%>
+                                <form action="/community/recomments/${comment.id}" method="post">
+                                    <input type="text" name="comments">
+                                    <input type="submit" value="댓글">
+                                </form>
+                                <td><input type="button" value="x" onclick="location.href='/community/comment/delete/${comment.id}'"></td>
+                            </tr>
+                        </c:otherwise>
+
+                    </c:choose>
+
+                    <c:set var="a" value="${comment.parent.id}"></c:set>
                 </c:forEach>
             </table>
         </div>

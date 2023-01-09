@@ -29,6 +29,7 @@ public class CommentTbRepositoryCustomImpl extends QuerydslRepositorySupport imp
         return query
                 .selectFrom(qCommentTb)
                 .where(qCommentTb.community_id.eq(Community_id))
+                .orderBy(qCommentTb.parent.asc())
                 .fetch();
 
     }

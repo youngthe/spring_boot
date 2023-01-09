@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,11 +18,15 @@ public class QCommunityTb extends EntityPathBase<CommunityTb> {
 
     private static final long serialVersionUID = -1586283862L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QCommunityTb communityTb = new QCommunityTb("communityTb");
+
+    public final QCommentTb comment;
 
     public final StringPath content = createString("content");
 
-    public final StringPath date = createString("date");
+    public final DatePath<java.time.LocalDate> date = createDate("date", java.time.LocalDate.class);
 
     public final StringPath file_name = createString("file_name");
 
@@ -31,18 +36,28 @@ public class QCommunityTb extends EntityPathBase<CommunityTb> {
 
     public final StringPath title = createString("title");
 
-    public final StringPath writer = createString("writer");
+    public final QUserTb user;
 
     public QCommunityTb(String variable) {
-        super(CommunityTb.class, forVariable(variable));
+        this(CommunityTb.class, forVariable(variable), INITS);
     }
 
     public QCommunityTb(Path<? extends CommunityTb> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QCommunityTb(PathMetadata metadata) {
-        super(CommunityTb.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QCommunityTb(PathMetadata metadata, PathInits inits) {
+        this(CommunityTb.class, metadata, inits);
+    }
+
+    public QCommunityTb(Class<? extends CommunityTb> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.comment = inits.isInitialized("comment") ? new QCommentTb(forProperty("comment")) : null;
+        this.user = inits.isInitialized("user") ? new QUserTb(forProperty("user")) : null;
     }
 
 }

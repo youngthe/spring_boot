@@ -51,6 +51,9 @@
             <td>PW one more : </td><td><input type="password" name="pw1" id="pw1"></td>
         </tr>
         <tr>
+            <td>NAME : </td><td><input type="text" name="name" id="name"></td>
+        </tr>
+        <tr>
             <td colspan="2"><input type="submit" value="회원가입"></td>
         </tr>
     </table>

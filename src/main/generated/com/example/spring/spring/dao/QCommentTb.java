@@ -23,11 +23,11 @@ public class QCommentTb extends EntityPathBase<CommentTb> {
 
     public final NumberPath<Long> community_id = createNumber("community_id", Long.class);
 
-    public final StringPath Date = createString("Date");
+    public final StringPath date = createString("date");
 
-    public final NumberPath<Long> id = createNumber("id", Long.class);
+    public final NumberPath<Integer> id = createNumber("id", Integer.class);
 
-    public final StringPath writer = createString("writer");
+    public final NumberPath<Integer> ref = createNumber("ref", Integer.class);
 
     public QCommentTb(String variable) {
         super(CommentTb.class, forVariable(variable));

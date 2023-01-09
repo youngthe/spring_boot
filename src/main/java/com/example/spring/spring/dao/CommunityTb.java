@@ -32,11 +32,6 @@ public class CommunityTb {
     private UserTb user;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "comment_id")
-    private CommentTb comment;
-
-
     public UserTb getUser() {
         return user;
     }

@@ -1,8 +1,10 @@
 package com.example.spring.spring.dao;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Comment;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,9 +27,12 @@ public class CommentTb {
     @Column(name = "date")
     private String date;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ref")
     private int ref;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    private CommentTb parent;
+
 
 
     public long getCommunity_id() {
@@ -61,6 +66,15 @@ public class CommentTb {
         this.id = id;
     }
 
+
+    public CommentTb getParent() {
+        return parent;
+    }
+
+    public void setParent(CommentTb parent) {
+        this.parent = parent;
+    }
+
     public int getRef() {
         return ref;
     }
@@ -68,6 +82,4 @@ public class CommentTb {
     public void setRef(int ref) {
         this.ref = ref;
     }
-
-
 }

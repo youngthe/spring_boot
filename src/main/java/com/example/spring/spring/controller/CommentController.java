@@ -49,7 +49,7 @@ public class CommentController {
         commentTb.setCommunity_id(community_id);
         commentTb.setComment(comment);
         commentTb.setDate(now);
-        commentTb.setRef(commentTb.getId());
+        commentTb.setRef(commentTb.getId())commentTb.setParent(commentTb);
         commentRepository.save(commentTb);
         return "redirect:/community/detail/" + community_id;
     }
@@ -58,7 +58,7 @@ public class CommentController {
     public String recomment_add(@PathVariable int commentId, HttpServletRequest request, HttpSession session) {
 
         String recomment = request.getParameter("comments");
-        String comment_num = request.getParameter("");
+//        String comment_num = request.getParameter("");
         String now = LocalDate.now().toString();
 
         int communityId = commentRepository.getCommunityIdByCommentId(commentId);
@@ -69,7 +69,7 @@ public class CommentController {
         commentTb.setCommunity_id(communityId);
         commentTb.setComment(recomment);
         commentTb.setDate(now);
-        commentTb.setRef(commentId);
+        commentTb.setParent(commentRepository.getReferenceById(commentId));
         commentRepository.save(commentTb);
         return "redirect:/";
     }
