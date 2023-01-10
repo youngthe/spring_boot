@@ -2,6 +2,7 @@ package com.example.spring.spring.controller;
 
 import com.example.spring.spring.dao.UserTb;
 import com.example.spring.spring.repository.UserRepository;
+import com.example.spring.spring.utils.JwtTokenProvider;
 import org.apache.commons.logging.Log;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
@@ -21,9 +22,12 @@ public class HomeController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
 
     @RequestMapping(value = "/")
     public String login(HttpSession session){
@@ -32,6 +36,8 @@ public class HomeController {
             return "redirect:/community";
         }
         return "login";
+
+
     }
 
     @RequestMapping(value = "/loginCheck")
@@ -41,6 +47,7 @@ public class HomeController {
 
         UserTb user = userRepository.getUserTbByAccount(account);
         String get_pw = user.getPw();
+
         if(passwordEncoder.matches(pw, get_pw)){
             session.setAttribute("user", account);
             return "redirect:/community";
@@ -81,7 +88,6 @@ public class HomeController {
 
     @RequestMapping(value = "/test")
     public String popup(){
-
         return "popup";
     }
 }
