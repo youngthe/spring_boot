@@ -38,6 +38,9 @@
                 <th>제목</th><td>${community.title}</td><th>파일</th><td><a location.href="/community/">${community.file_name}</a></td>
             </tr>
             <tr>
+                <th>좋아요 여부(0 or 1)</th><td></td> <th><input type="button" class="btn btn-dark m-1" id="" value="좋아요" onclick="location.href='/community/heart/${community.id}'"></th><td></td>
+            </tr>
+            <tr>
                 <td colspan="4">${community.content}</td>
             </tr>
         </table>

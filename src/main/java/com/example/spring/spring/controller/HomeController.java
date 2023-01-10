@@ -6,6 +6,7 @@ import org.apache.commons.logging.Log;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +22,9 @@ public class HomeController {
     private UserRepository userRepository;
 
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @RequestMapping(value = "/")
     public String login(HttpSession session){
 
@@ -35,18 +39,15 @@ public class HomeController {
         String account = request.getParameter("account");
         String pw = request.getParameter("pw");
 
-        UserTb userTb = new UserTb();
-        userTb.setAccount(account);
-        userTb.setPw(pw);
-
-        System.out.println(userRepository.LoginCheck(userTb));
-
-        if(userRepository.LoginCheck(userTb)){
+        UserTb user = userRepository.getUserTbByAccount(account);
+        String get_pw = user.getPw();
+        if(passwordEncoder.matches(pw, get_pw)){
             session.setAttribute("user", account);
             return "redirect:/community";
         }else{
             return "login";
         }
+
     }
 
     @RequestMapping(value = "/register")
@@ -61,7 +62,7 @@ public class HomeController {
         if(request.getMethod().equals("POST")){
             UserTb userTb = new UserTb();
             userTb.setAccount(id);
-            userTb.setPw(pw);
+            userTb.setPw(passwordEncoder.encode(pw));
             userTb.setName(name);
             userRepository.save(userTb);
             return "login";

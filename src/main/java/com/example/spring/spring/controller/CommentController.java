@@ -3,6 +3,7 @@ package com.example.spring.spring.controller;
 import com.example.spring.spring.dao.CommentTb;
 import com.example.spring.spring.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,7 +59,6 @@ public class CommentController {
     public String recomment_add(@PathVariable int commentId, HttpServletRequest request, HttpSession session) {
 
         String recomment = request.getParameter("comments");
-        String Path = request.getContextPath();
         String now = LocalDate.now().toString();
 
         int communityId = commentRepository.getCommunityIdByCommentId(commentId);
@@ -71,6 +71,6 @@ public class CommentController {
         commentTb.setDate(now);
         commentTb.setParent(commentRepository.getReferenceById(commentId));
         commentRepository.save(commentTb);
-        return "redirect:" + Path;
+        return "redirect:/community";
     }
 }

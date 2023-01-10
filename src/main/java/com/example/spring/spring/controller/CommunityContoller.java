@@ -2,6 +2,7 @@ package com.example.spring.spring.controller;
 
 import com.example.spring.spring.dao.CommentTb;
 import com.example.spring.spring.dao.CommunityTb;
+import com.example.spring.spring.dao.HeartTb;
 import com.example.spring.spring.dao.UserTb;
 import com.example.spring.spring.repository.CommentRepository;
 import com.example.spring.spring.repository.CommunityRepository;
@@ -207,6 +208,17 @@ public class CommunityContoller {
             ScriptUtil.alert_back(response, "올바른 요청이 아닙니다");
             return "redirect:/community";
         }
+
+    }
+
+    @RequestMapping(value="/community/heart/{community_id}")
+    public String heart_Increase(@PathVariable int community_id, HttpSession session){
+
+        String user = (String) session.getAttribute("user");
+        HeartTb heartTb = new HeartTb();
+//        heartTb.getCommunity_id()
+
+        return "redirect:/community";
 
     }
 
